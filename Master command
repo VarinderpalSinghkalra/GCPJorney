@@ -1,0 +1,26 @@
+Master command to know the versions of dependent applications :- docker run --rm gcr.io/google.com/cloudsdktool/google-cloud-cli:latest gcloud version
+
+Outcome :- 
+
+Google Cloud SDK 485.0.0
+alpha 2024.07.19
+app-engine-go 1.9.76
+app-engine-java 2.0.29
+app-engine-python 1.9.113
+app-engine-python-extras 1.9.107
+beta 2024.07.19
+bigtable 
+bq 2.1.7
+bundled-python3-unix 3.11.8
+cbt 1.21.0
+cloud-datastore-emulator 2.3.1
+cloud-firestore-emulator 1.19.7
+cloud-spanner-emulator 1.5.19
+core 2024.07.19
+gcloud-crc32c 1.0.0
+gke-gcloud-auth-plugin 0.5.9
+gsutil 5.30
+kpt 1.0.0-beta.50
+kubectl 1.27.15
+local-extract 1.5.9
+pubsub-emulator 0.8.14

@@ -1,0 +1,49 @@
+mkdir hello-velvety-accord
+cd hello-velvety-accord/
+touch app.py
+vim app.py
+
+Application code :- 
+
+import os
+from flask import Flask
+
+app = Flask(_name_)
+
+@app.route('/')
+def_hello_velvet():
+target = os.environ.get('TARGET','HELLO')
+return 'HELLO {}\n'.format(target)
+
+if_name_ == "_main_":
+app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT',8080)))
+
+touch Dockerfile
+vim Dockerfile
+DockerFile :- 
+# Use lightweight Python 3.7 image.
+# https://hub.docker.com/python
+From python:3.7-slim
+
+#Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+
+#Install production dependencies.
+RUN pip install flask gunicorn
+
+
+#Run the web service on container startup. Here we use the gunicorn
+#webserver, the one worker process and 8 threads.
+
+
+CMD exec gunicron --bind :$PORT --workers 1 --threads 8 -- timeout 0 app:app
+
+
+ls -lrt
+chmod +x Dockerfile
+
+gcloud builds submit --tag gcr.io/Project ID/tag  
+
+gcloud run deploy --image gcr.io/Project ID/tag

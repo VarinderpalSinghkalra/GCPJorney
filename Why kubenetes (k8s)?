@@ -1,0 +1,71 @@
+Why kubenetes (k8s)?
+Use kubectl apply -f or kubectl create -f . This looks for Kubernetes configuration in all .yaml, .yml, and .json files in and passes it to apply or create.
+
+Configuration Best Practices
+
+YAML configurations files
+Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
+
+deployment.yaml (read more)
+A Deployment controller provides declarative updates for Pods and ReplicaSets.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+service.yaml (read more)
+A Service in Kubernetes is a REST object, similar to a Pod. Like all of the REST objects, a Service definition can be POSTed to the apiserver to create a new instance. For example, suppose you have a set of Pods that each expose port 9376 and carry a label "app=MyApp".
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+ingress.yaml (read more)
+An API object that manages external access to the services in a cluster, typically HTTP.
+
+Ingress can provide load balancing, SSL termination and name-based virtual hosting.
+
+A minimal Ingress might look like:
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: test
+          servicePort: 80
+Apply changes (read more)
+It is suggested to maintain a set of configuration files in source control (see configuration as code), so that they can be maintained and versioned along with the code for the resources they configure. Then, you can use kubectl apply to push your configuration changes to the cluster.
+
+kubectl apply -f .
